@@ -12,102 +12,118 @@
             --primary-blue: #007bff;
             --bg-light: #f8f9fa;
             --white: #ffffff;
+            --text-dark: #1a202c;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background-color: var(--bg-light); color: #1a202c; scroll-behavior: smooth; overflow-x: hidden; }
+        body { background-color: var(--bg-light); color: var(--text-dark); scroll-behavior: smooth; }
 
         /* --- Header --- */
         header {
-            display: flex; flex-direction: column; align-items: center;
-            padding: 10px 5%; background: var(--white); position: sticky; top: 0; z-index: 1000;
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 10px 0;
         }
-        .header-top { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        
-        .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .logo-text { font-weight: 900; font-size: 1.3rem; color: #000; text-transform: uppercase; }
-        .logo-text span { color: var(--primary-blue); }
-        .logo-img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
 
-        .nav-wrapper { display: flex; gap: 8px; overflow-x: auto; width: 100%; padding: 5px 0; scrollbar-width: none; }
-        .nav-wrapper::-webkit-scrollbar { display: none; }
+        /* حاوية الشعار (AEM BOOTS) في الوسط */
+        .logo-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .logo-text { font-weight: 900; font-size: 1.6rem; color: #000; text-transform: uppercase; text-decoration: none; }
+        .logo-text span { color: #000; }
+        .logo-img { width: 45px; height: 45px; border-radius: 8px; object-fit: cover; }
+
+        /* حاوية الماركات والاكسسوارات في الأسفل */
+        .nav-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 15px 5%;
+            scrollbar-width: none;
+        }
+        .nav-wrapper::-webkit-scrollbar { display: none; } /* إخفاء شريط التمرير */
+
         .filter-btn { 
-            border: none; color: #4a5568; font-weight: 700; padding: 8px 16px; 
-            border-radius: 50px; cursor: pointer; background: #f1f5f9; white-space: nowrap; font-size: 0.85rem;
+            border: none;
+            color: #4a5568;
+            font-weight: 700;
+            padding: 10px 20px; 
+            border-radius: 50px;
+            cursor: pointer;
+            background: #f1f5f9;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            transition: 0.2s;
         }
         .filter-btn.active { background: var(--primary-blue); color: white; }
+        .filter-btn:hover:not(.active) { background: #e2e8f0; }
 
         /* --- Hero --- */
-        .hero { display: flex; align-items: center; justify-content: space-between; padding: 40px 8%; background: var(--white); border-bottom: 1px solid #f0f0f0; }
-        .hero-content { flex: 1; }
-        .hero-content h1 { font-size: 2.5rem; font-weight: 900; line-height: 1.1; }
+        .hero { display: flex; align-items: center; justify-content: space-between; padding: 50px 8%; background: var(--white); border-bottom: 1px solid #f0f0f0; }
+        .hero-content { flex: 1; padding-right: 40px; }
+        .hero-content h1 { font-size: 3rem; font-weight: 900; line-height: 1.1; }
         .hero-content h1 span { color: var(--primary-blue); }
         .hero-image { flex: 1; display: flex; justify-content: center; }
-        .hero-image img { width: 100%; max-width: 300px; border-radius: 20px; }
+        .hero-image img { width: 100%; max-width: 400px; border-radius: 25px; object-fit: cover; }
 
         /* --- Products Grid --- */
-        .products-section { padding: 20px 5%; }
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); /* صورتين في كل سطر للموبايل */
-            gap: 15px; 
-        }
-        
-        .card { background: white; border-radius: 15px; overflow: hidden; border: 1px solid #f0f0f0; transition: 0.3s; display: flex; flex-direction: column; position: relative; }
-        .card-img-wrapper { width: 100%; height: 180px; background: #f9f9f9; }
+        .products-section { padding: 40px 8%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; }
+        .card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid #f0f0f0; transition: 0.3s; display: flex; flex-direction: column; position: relative; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .card-img-wrapper { width: 100%; height: 280px; background: #f9f9f9; }
         .card-img { width: 100%; height: 100%; object-fit: cover; }
-        .tag { position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.9); padding: 2px 8px; border-radius: 50px; font-weight: 800; font-size: 0.6rem; color: #333; z-index: 10; }
-        
-        .card-body { padding: 10px; text-align: left; display: flex; flex-direction: column; justify-content: space-between; flex-grow: 1; }
-        .card-body h3 { font-size: 0.85rem; font-weight: 700; height: 40px; overflow: hidden; }
-        .price { font-weight: 900; font-size: 1rem; color: var(--primary-blue); margin: 5px 0; }
-        .add-btn { background: var(--primary-blue); color: white; border: none; width: 35px; height: 35px; border-radius: 10px; cursor: pointer; align-self: flex-end; }
+        .tag { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.9); padding: 4px 12px; border-radius: 50px; font-weight: 800; font-size: 0.7rem; color: #333; z-index: 10; }
+        .card-body { padding: 20px; text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .card-body h3 { font-size: 1.1rem; font-weight: 700; }
+        .price { font-weight: 900; font-size: 1.3rem; color: var(--primary-blue); margin: 10px 0; }
+        .add-btn { background: var(--primary-blue); color: white; border: none; width: 100%; padding: 12px; border-radius: 12px; cursor: pointer; font-weight: 700; margin-top: 10px; }
 
-        /* --- Modal --- */
-        .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); justify-content: center; align-items: flex-end; }
-        .modal-content { background: white; padding: 25px; border-radius: 25px 25px 0 0; width: 100%; max-width: 500px; animation: slideUp 0.3s ease-out; }
-        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-        
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; border: none; background: none; }
+        /* --- Modal & Size Selection --- */
+        .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 25px; width: 95%; max-width: 420px; position: relative; max-height: 90vh; overflow-y: auto; animation: scaleIn 0.3s ease-out; }
+        @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .close-btn { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; cursor: pointer; border: none; background: none; }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: 700; font-size: 0.85rem; }
         .form-group input { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 12px; outline: none; }
         
-        .size-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
-        .size-box { border: 2px solid #eee; padding: 10px; text-align: center; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.8rem; }
+        .size-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+        .size-box { border: 2px solid #eee; padding: 12px; text-align: center; border-radius: 12px; cursor: pointer; font-weight: 700; transition: 0.2s; }
         .size-box.selected { border-color: var(--primary-blue); background: #e1efff; color: var(--primary-blue); }
-        .submit-btn { width: 100%; padding: 15px; background: #25D366; color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 10px; font-size: 1rem; }
 
-        /* --- Desktop Adjustments --- */
-        @media (min-width: 769px) {
-            header { flex-direction: row; justify-content: space-between; padding: 15px 8%; }
-            .header-top { width: auto; margin-bottom: 0; }
-            .nav-wrapper { width: auto; overflow: visible; }
-            .grid { grid-template-columns: repeat(4, 1fr); gap: 25px; }
-            .card-img-wrapper { height: 250px; }
-            .modal { align-items: center; }
-            .modal-content { border-radius: 25px; width: 95%; max-width: 420px; }
-        }
+        .submit-btn { width: 100%; padding: 15px; background: #25D366; color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 10px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; }
 
+        footer { padding: 40px 5%; background: var(--white); border-top: 1px solid #f0f0f0; text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+        /* --- Media Queries --- */
         @media (max-width: 768px) {
-            .hero { flex-direction: column-reverse; text-align: center; padding: 30px 5%; }
-            .hero-content h1 { font-size: 1.8rem; margin-top: 15px; }
-            .hero-image img { max-width: 220px; }
+            .hero { flex-direction: column-reverse; text-align: center; padding: 40px 5%; }
+            .hero-content { padding-right: 0; margin-top: 20px; }
+            .hero-content h1 { font-size: 2rem; }
+            .hero-image img { max-width: 250px; }
+            .grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+            .products-section { padding: 20px 5%; }
+            .logo-text { font-size: 1.4rem; }
+            .nav-wrapper { justify-content: flex-start; } /* التمرير لليسار على الهاتف */
         }
-
-        footer { padding: 30px 5%; background: var(--white); text-align: center; border-top: 1px solid #f0f0f0; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="header-top">
-            <a href="#" class="logo-container">
-                <div class="logo-text">AEM <span>BOOTS</span></div>
-                <img src="img/logo.jpeg" class="logo-img">
-            </a>
-            <i class="fas fa-shopping-cart" style="font-size: 1.2rem;"></i>
+        <div class="logo-bar">
+            <a href="#" class="logo-text">AEM <span>BOOTS</span></a>
+            <img src="img/logo.jpeg" class="logo-img" alt="AEM BOOTS Logo">
         </div>
         <div class="nav-wrapper">
             <button class="filter-btn active" onclick="filterItems('all', this)">Tous</button>
@@ -121,9 +137,9 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Le meilleur du <span>Football</span></h1>
-            <p style="margin: 10px 0 20px; color: #718096; font-size: 0.9rem;">Collection exclusive de haute qualité au Maroc.</p>
-            <a href="#shop" style="background: var(--primary-blue); color:white; padding:10px 20px; border-radius:50px; text-decoration:none; font-weight:bold; font-size: 0.9rem;">Acheter</a>
+            <h1>Le meilleur du <span>Football</span> chez AEM BOOTS</h1>
+            <p style="margin: 15px 0 25px; color: #718096;">Découvrez notre collection exclusive de haute qualité.</p>
+            <a href="#shop" style="background: var(--primary-blue); color:white; padding:12px 25px; border-radius:50px; text-decoration:none; font-weight:bold;">Acheter Maintenant</a>
         </div>
         <div class="hero-image">
             <img src="img/nike.jpeg" alt="Hero Shoe">
@@ -132,68 +148,94 @@
 
     <section class="products-section" id="shop">
         <div class="grid">
+            
             <div class="card" data-tag="Nike">
                 <span class="tag">Nike</span>
-                <div class="card-img-wrapper"><img src="img/nike1.jpeg" class="card-img"></div>
+                <div class="card-img-wrapper"><img src="img/nike1.jpeg" class="card-img" alt="Nike Mercurial Pink"></div>
                 <div class="card-body">
                     <h3>Nike Mercurial Pink</h3>
                     <div class="price">750 DH</div>
-                    <button class="add-btn" onclick="openOrder('Nike Mercurial Pink', '750 DH', 'shoe')"><i class="fas fa-plus"></i></button>
+                    <button class="add-btn" onclick="openOrder('Nike Mercurial Pink', '750 DH', 'shoe')">Commander</button>
                 </div>
             </div>
+
             <div class="card" data-tag="Nike">
                 <span class="tag">Nike</span>
-                <div class="card-img-wrapper"><img src="img/nike2.jpeg" class="card-img"></div>
+                <div class="card-img-wrapper"><img src="img/nike2.jpeg" class="card-img" alt="Nike Phantom Blue"></div>
                 <div class="card-body">
                     <h3>Nike Phantom Blue</h3>
                     <div class="price">799 DH</div>
-                    <button class="add-btn" onclick="openOrder('Nike Phantom Blue', '799 DH', 'shoe')"><i class="fas fa-plus"></i></button>
+                    <button class="add-btn" onclick="openOrder('Nike Phantom Blue', '799 DH', 'shoe')">Commander</button>
                 </div>
             </div>
+
             <div class="card" data-tag="Adidas">
                 <span class="tag">Adidas</span>
-                <div class="card-img-wrapper"><img src="img/adidas.jpeg" class="card-img"></div>
+                <div class="card-img-wrapper"><img src="img/adidas.jpeg" class="card-img" alt="Adidas Predator Elite"></div>
                 <div class="card-body">
                     <h3>Adidas Predator Elite</h3>
                     <div class="price">750 DH</div>
-                    <button class="add-btn" onclick="openOrder('Adidas Predator Elite', '750 DH', 'shoe')"><i class="fas fa-plus"></i></button>
+                    <button class="add-btn" onclick="openOrder('Adidas Predator Elite', '750 DH', 'shoe')">Commander</button>
                 </div>
             </div>
             <div class="card" data-tag="Puma">
                 <span class="tag">Puma</span>
-                <div class="card-img-wrapper"><img src="img/puma.jpeg" class="card-img"></div>
+                <div class="card-img-wrapper"><img src="img/puma.jpeg" class="card-img" alt="Puma Future"></div>
                 <div class="card-body">
-                    <h3>Puma Future 7</h3>
+                    <h3>Puma Future</h3>
                     <div class="price">750 DH</div>
-                    <button class="add-btn" onclick="openOrder('Puma Future 7', '750 DH', 'shoe')"><i class="fas fa-plus"></i></button>
+                    <button class="add-btn" onclick="openOrder('Puma Future', '750 DH', 'shoe')">Commander</button>
                 </div>
             </div>
-             <div class="card" data-tag="Maillot">
+
+            <div class="card" data-tag="Maillot">
                 <span class="tag">Maillot</span>
-                <div class="card-img-wrapper"><img src="img/moroco1.jpeg" class="card-img"></div>
+                <div class="card-img-wrapper"><img src="img/moroco1.jpeg" class="card-img" alt="Maroc Domicile 2026"></div>
                 <div class="card-body">
                     <h3>Maroc Domicile 2026</h3>
                     <div class="price">650 DH</div>
-                    <button class="add-btn" onclick="openOrder('Maroc Domicile 2026', '650 DH', 'shirt')"><i class="fas fa-plus"></i></button>
+                    <button class="add-btn" onclick="openOrder('Maroc Domicile 2026', '650 DH', 'shirt')">Commander</button>
                 </div>
             </div>
+
+            <div class="card" data-tag="Maillot">
+                <span class="tag">Maillot</span>
+                <div class="card-img-wrapper"><img src="img/arg.jpeg" class="card-img" alt="Maillot Argentine"></div>
+                <div class="card-body">
+                    <h3>Maillot Argentine</h3>
+                    <div class="price">550 DH</div>
+                    <button class="add-btn" onclick="openOrder('Maillot Argentine', '550 DH', 'shirt')">Commander</button>
+                </div>
+            </div>
+
             <div class="card" data-tag="Accessoire">
                 <span class="tag">Accessoire</span>
-                <div class="card-img-wrapper"><img src="img/prtj.jpeg" class="card-img"></div>
+                <div class="card-img-wrapper"><img src="img/prtj.jpeg" class="card-img" alt="Protège-tibias AEM"></div>
                 <div class="card-body">
                     <h3>Protège-tibias AEM</h3>
                     <div class="price">150 DH</div>
-                    <button class="add-btn" onclick="openOrder('Protège-tibias AEM', '150 DH', 'acc')"><i class="fas fa-plus"></i></button>
+                    <button class="add-btn" onclick="openOrder('Protège-tibias AEM', '150 DH', 'acc')">Commander</button>
                 </div>
             </div>
+
+            <div class="card" data-tag="Accessoire">
+                <span class="tag">Accessoire</span>
+                <div class="card-img-wrapper"><img src="img/silikonw.jpeg" class="card-img" alt="Chaussettes Silicone"></div>
+                <div class="card-body">
+                    <h3>Chaussettes Silicone</h3>
+                    <div class="price">100 DH</div>
+                    <button class="add-btn" onclick="openOrder('Chaussettes Silicone', '100 DH', 'acc')">Commander</button>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <div class="modal" id="orderModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">&times;</button>
-            <h2 id="mTitle" style="font-weight:900; font-size: 1.2rem;">Commander</h2>
-            <p id="mPrice" style="color:var(--primary-blue); font-weight:800; margin-bottom:15px;"></p>
+            <h2 id="mTitle" style="font-weight:900; font-size: 1.3rem;">Commander</h2>
+            <p id="mPrice" style="color:var(--primary-blue); font-weight:800; margin-bottom:20px; font-size: 1.1rem;"></p>
             
             <form onsubmit="sendOrder(event)">
                 <div class="form-group">
@@ -202,11 +244,11 @@
                 </div>
                 <div class="form-group">
                     <label>Téléphone</label>
-                    <input type="tel" id="cPhone" placeholder="06..." required>
+                    <input type="tel" id="cPhone" placeholder="06XXXXXXXX" required>
                 </div>
                 <div class="form-group">
-                    <label>Adresse</label>
-                    <input type="text" id="cAddress" placeholder="Ville, Quartier..." required>
+                    <label>Adresse Complète</label>
+                    <input type="text" id="cAddress" placeholder="Ville, Quartier, Rue..." required>
                 </div>
 
                 <div id="sizeSection" class="form-group">
@@ -214,14 +256,15 @@
                     <div class="size-grid" id="sizeGrid"></div>
                 </div>
 
-                <button type="submit" class="submit-btn"><i class="fab fa-whatsapp"></i> COMMANDER VIA WHATSAPP</button>
+                <input type="hidden" id="selectedSize">
+                <button type="submit" class="submit-btn"><i class="fab fa-whatsapp"></i> CONFIRMER VIA WHATSAPP</button>
             </form>
         </div>
     </div>
 
     <footer>
-        <div class="logo-text" style="font-size: 1rem;">AEM <span>BOOTS</span></div>
-        <p style="color: #a0aec0; font-size: 0.7rem; margin-top: 10px;">© 2026 AEM BOOTS Morocco.</p>
+        <div class="logo-text" style="font-size: 1.2rem;">AEM <span>BOOTS</span> Morocco</div>
+        <p style="color: #a0aec0; font-size: 0.8rem; margin-top: 10px;">© 2026 Tous droits réservés.</p>
     </footer>
 
     <script>
@@ -238,24 +281,31 @@
         function openOrder(name, price, type) {
             document.getElementById('mTitle').innerText = name;
             document.getElementById('mPrice').innerText = price;
+            
             const grid = document.getElementById('sizeGrid');
             const section = document.getElementById('sizeSection');
             const label = document.getElementById('sizeLabel');
+            
             grid.innerHTML = '';
             currentSize = null;
 
             if (type === 'shoe') {
                 section.style.display = 'block';
                 label.innerText = "Pointure (36 - 44)";
-                [36, 37, 38, 39, 40, 41, 42, 43, 44].forEach(s => createSizeBox(s, grid));
-            } else if (type === 'shirt') {
+                const sizes = [36, 37, 38, 39, 40, 41, 42, 43, 44];
+                sizes.forEach(s => createSizeBox(s, grid));
+            } 
+            else if (type === 'shirt') {
                 section.style.display = 'block';
                 label.innerText = "Taille (S - XXL)";
-                ['S', 'M', 'L', 'XL', 'XXL'].forEach(s => createSizeBox(s, grid));
-            } else {
+                const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
+                sizes.forEach(s => createSizeBox(s, grid));
+            } 
+            else {
                 section.style.display = 'none';
-                currentSize = 'N/A';
+                currentSize = 'N/A'; // لا يحتاج مقاس للإكسسوارات
             }
+
             document.getElementById('orderModal').style.display = 'flex';
         }
 
@@ -283,9 +333,9 @@
             const product = document.getElementById('mTitle').innerText;
             const price = document.getElementById('mPrice').innerText;
 
-            // استبدل الرقم برقم الواتساب الخاص بك
-            const myNumber = "212600000000"; 
-            const message = `Bonjour AEM BOOTS, je souhaite commander :%0A- Produit : ${product}%0A- Taille : ${currentSize}%0A- Prix : ${price}%0A---%0A- Nom : ${name}%0A- Tel : ${phone}%0A- Adresse : ${address}`;
+            // ضع رقم الواتساب الخاص بك هنا (بدون +)
+            const myNumber = "212620146461"; 
+            const message = `السلام عليكم، أريد طلب منتج من AEM BOOTS:%0A- المنتج: ${product}%0A- القياس: ${currentSize}%0A- السعر: ${price}%0A---%0A- الاسم: ${name}%0A- الهاتف: ${phone}%0A- العنوان: ${address}`;
             
             window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
             closeModal();
