@@ -66,14 +66,6 @@
         }
         .filter-btn.active { background: var(--primary-blue); color: white; }
 
-        /* --- Hero --- */
-        .hero { display: flex; align-items: center; justify-content: space-between; padding: 40px 8%; background: var(--white); border-bottom: 1px solid #f0f0f0; }
-        .hero-content { flex: 1; }
-        .hero-content h1 { font-size: 2.5rem; font-weight: 900; line-height: 1.1; }
-        .hero-content h1 span { color: var(--primary-blue); }
-        .hero-image { flex: 1; display: flex; justify-content: center; }
-        .hero-image img { width: 100%; max-width: 300px; border-radius: 20px; }
-
         /* --- Products Grid --- */
         .products-section { padding: 20px 5%; }
         .grid { 
@@ -92,37 +84,32 @@
         .price { font-weight: 900; font-size: 1rem; color: var(--primary-blue); margin-bottom: 10px; }
         .add-btn { background: var(--primary-blue); color: white; border: none; width: 100%; padding: 10px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.8rem; }
 
-        /* --- Modal --- */
+        /* --- Modal (الاستمارة) --- */
         .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); justify-content: center; align-items: flex-end; }
-        .modal-content { background: white; padding: 25px; border-radius: 25px 25px 0 0; width: 100%; max-width: 500px; animation: slideUp 0.3s ease-out; position: relative; }
+        .modal-content { background: white; padding: 25px; border-radius: 25px 25px 0 0; width: 100%; max-width: 500px; animation: slideUp 0.3s ease-out; position: relative; max-height: 90vh; overflow-y: auto; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
         
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; border: none; background: none; }
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 700; font-size: 0.85rem; }
-        .form-group input { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 12px; outline: none; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 0.85rem; }
+        .form-group input { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 12px; outline: none; font-size: 0.9rem; }
         
-        .size-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
-        .size-box { border: 2px solid #eee; padding: 10px; text-align: center; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.8rem; }
+        /* تصميم جدول القياسات */
+        .size-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 5px; }
+        .size-box { border: 2px solid #eee; padding: 10px; text-align: center; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.85rem; transition: 0.2s; }
         .size-box.selected { border-color: var(--primary-blue); background: #e1efff; color: var(--primary-blue); }
+
         .submit-btn { width: 100%; padding: 15px; background: #25D366; color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 10px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; }
 
         /* --- Desktop Adjustments --- */
         @media (min-width: 769px) {
-            .nav-wrapper { justify-content: center; }
             .grid { grid-template-columns: repeat(4, 1fr); gap: 25px; }
             .card-img-wrapper { height: 250px; }
             .modal { align-items: center; }
             .modal-content { border-radius: 25px; width: 95%; max-width: 420px; }
         }
 
-        @media (max-width: 768px) {
-            .hero { flex-direction: column-reverse; text-align: center; padding: 30px 5%; }
-            .hero-content h1 { font-size: 1.8rem; margin-top: 15px; }
-            .nav-wrapper { justify-content: flex-start; }
-        }
-
-        footer { padding: 30px 5%; background: var(--white); text-align: center; border-top: 1px solid #f0f0f0; }
+        footer { padding: 30px 5%; background: var(--white); text-align: center; border-top: 1px solid #f0f0f0; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -142,17 +129,6 @@
         </div>
     </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Le meilleur du <span>Football</span></h1>
-            <p style="margin: 10px 0 20px; color: #718096; font-size: 0.9rem;">Qualité Élite au Maroc.</p>
-            <a href="#shop" style="background: var(--primary-blue); color:white; padding:10px 20px; border-radius:50px; text-decoration:none; font-weight:bold; font-size: 0.9rem;">Acheter</a>
-        </div>
-        <div class="hero-image">
-            <img src="img/nike.jpeg" alt="Hero">
-        </div>
-    </section>
-
     <section class="products-section" id="shop">
         <div class="grid">
             <div class="card" data-tag="Nike">
@@ -164,34 +140,8 @@
                     <button class="add-btn" onclick="openOrder('Nike Mercurial Pink', '750 DH', 'shoe')">Commander</button>
                 </div>
             </div>
-            <div class="card" data-tag="Nike">
-                <span class="tag">Nike</span>
-                <div class="card-img-wrapper"><img src="img/nike2.jpeg" class="card-img"></div>
-                <div class="card-body">
-                    <h3>Nike Phantom Blue</h3>
-                    <div class="price">799 DH</div>
-                    <button class="add-btn" onclick="openOrder('Nike Phantom Blue', '799 DH', 'shoe')">Commander</button>
-                </div>
-            </div>
-            <div class="card" data-tag="Adidas">
-                <span class="tag">Adidas</span>
-                <div class="card-img-wrapper"><img src="img/adidas.jpeg" class="card-img"></div>
-                <div class="card-body">
-                    <h3>Adidas Predator Elite</h3>
-                    <div class="price">750 DH</div>
-                    <button class="add-btn" onclick="openOrder('Adidas Predator Elite', '750 DH', 'shoe')">Commander</button>
-                </div>
-            </div>
-            <div class="card" data-tag="Puma">
-                <span class="tag">Puma</span>
-                <div class="card-img-wrapper"><img src="img/puma.jpeg" class="card-img"></div>
-                <div class="card-body">
-                    <h3>Puma Future 7</h3>
-                    <div class="price">750 DH</div>
-                    <button class="add-btn" onclick="openOrder('Puma Future 7', '750 DH', 'shoe')">Commander</button>
-                </div>
-            </div>
-             <div class="card" data-tag="Maillot">
+
+            <div class="card" data-tag="Maillot">
                 <span class="tag">Maillot</span>
                 <div class="card-img-wrapper"><img src="img/moroco1.jpeg" class="card-img"></div>
                 <div class="card-body">
@@ -200,6 +150,7 @@
                     <button class="add-btn" onclick="openOrder('Maroc Domicile 2026', '650 DH', 'shirt')">Commander</button>
                 </div>
             </div>
+
             <div class="card" data-tag="Accessoire">
                 <span class="tag">Accessoire</span>
                 <div class="card-img-wrapper"><img src="img/prtj.jpeg" class="card-img"></div>
@@ -209,14 +160,15 @@
                     <button class="add-btn" onclick="openOrder('Protège-tibias AEM', '150 DH', 'acc')">Commander</button>
                 </div>
             </div>
-        </div>
+            
+            </div>
     </section>
 
     <div class="modal" id="orderModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">&times;</button>
-            <h2 id="mTitle" style="font-weight:900; font-size: 1.2rem;">Commander</h2>
-            <p id="mPrice" style="color:var(--primary-blue); font-weight:800; margin-bottom:15px;"></p>
+            <h2 id="mTitle" style="font-weight:900; font-size: 1.2rem; margin-bottom: 5px;">Commander</h2>
+            <p id="mPrice" style="color:var(--primary-blue); font-weight:800; margin-bottom:20px;"></p>
             
             <form onsubmit="sendOrder(event)">
                 <div class="form-group">
@@ -263,14 +215,18 @@
             document.getElementById('mPrice').innerText = price;
             const grid = document.getElementById('sizeGrid');
             const section = document.getElementById('sizeSection');
+            const label = document.getElementById('sizeLabel');
             grid.innerHTML = '';
             currentSize = null;
 
             if (type === 'shoe') {
                 section.style.display = 'block';
-                [36, 37, 38, 39, 40, 41, 42, 43, 44].forEach(s => createSizeBox(s, grid));
+                label.innerText = "Pointure (Taille)";
+                // القياسات من 36 إلى 45
+                [36, 37, 38, 39, 40, 41, 42, 43, 44, 45].forEach(s => createSizeBox(s, grid));
             } else if (type === 'shirt') {
                 section.style.display = 'block';
+                label.innerText = "Taille (S - XXL)";
                 ['S', 'M', 'L', 'XL', 'XXL'].forEach(s => createSizeBox(s, grid));
             } else {
                 section.style.display = 'none';
@@ -303,7 +259,7 @@
             const product = document.getElementById('mTitle').innerText;
             const price = document.getElementById('mPrice').innerText;
 
-            const myNumber = "212620146461"; 
+            const myNumber = "212684384248"; 
             const message = `Bonjour AEM BOOTS, je souhaite commander :%0A- Produit : ${product}%0A- Taille : ${currentSize}%0A- Prix : ${price}%0A---%0A- Nom : ${name}%0A- Tel : ${phone}%0A- Adresse : ${address}`;
             
             window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
