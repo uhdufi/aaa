@@ -1,1 +1,295 @@
-# aaa
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEM BOOTS | Elite Football Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap');
+
+        :root {
+            --primary-blue: #007bff;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-light); color: #1a202c; scroll-behavior: smooth; }
+
+        /* --- Header --- */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: var(--white); position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-text { font-weight: 900; font-size: 1.5rem; color: #000; text-transform: uppercase; }
+        .logo-text span { color: #000; } /* اسم الموقع أسود بالكامل */
+        .logo-img { width: 45px; height: 45px; border-radius: 8px; object-fit: cover; }
+
+        .nav-wrapper { display: flex; gap: 10px; overflow-x: auto; padding: 5px; scrollbar-width: none; }
+        .filter-btn { 
+            border: none; color: #4a5568; font-weight: 700; padding: 10px 20px; 
+            border-radius: 50px; cursor: pointer; background: #f1f5f9; white-space: nowrap; 
+        }
+        .filter-btn.active { background: var(--primary-blue); color: white; }
+
+        /* --- Hero --- */
+        .hero { display: flex; align-items: center; justify-content: space-between; padding: 50px 8%; background: var(--white); border-bottom: 1px solid #f0f0f0; }
+        .hero-content { flex: 1; padding-right: 40px; }
+        .hero-content h1 { font-size: 3rem; font-weight: 900; line-height: 1.1; }
+        .hero-content h1 span { color: var(--primary-blue); }
+        .hero-image img { width: 100%; max-width: 400px; border-radius: 25px; }
+
+        /* --- Products Grid --- */
+        .products-section { padding: 40px 8%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px; }
+        .card { background: white; border-radius: 20px; overflow: hidden; border: 1px solid #f0f0f0; transition: 0.3s; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-8px); }
+        .card-img-wrapper { width: 100%; height: 280px; background: #f9f9f9; position: relative; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        .tag { position: absolute; top: 12px; right: 12px; background: rgba(255,255,255,0.9); padding: 4px 12px; border-radius: 50px; font-weight: 800; font-size: 0.7rem; color: #333; }
+        .card-body { padding: 15px; text-align: center; flex-grow: 1; }
+        .price { font-weight: 900; font-size: 1.2rem; color: var(--primary-blue); margin: 10px 0; }
+        .add-btn { background: var(--primary-blue); color: white; border: none; width: 42px; height: 42px; border-radius: 12px; cursor: pointer; }
+
+        /* --- Modal & Size Selection --- */
+        .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 25px; width: 95%; max-width: 420px; position: relative; max-height: 90vh; overflow-y: auto; }
+        .close-btn { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; cursor: pointer; border: none; background: none; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 700; font-size: 0.85rem; }
+        .form-group input { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 12px; outline: none; }
+        
+        .size-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+        .size-box { border: 2px solid #eee; padding: 12px; text-align: center; border-radius: 12px; cursor: pointer; font-weight: 700; transition: 0.2s; }
+        .size-box.selected { border-color: var(--primary-blue); background: #e1efff; color: var(--primary-blue); }
+
+        .submit-btn { width: 100%; padding: 15px; background: var(--primary-blue); color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 10px; }
+
+        footer { padding: 40px 5%; background: var(--white); border-top: 1px solid #f0f0f0; text-align: center; display: flex; flex-direction: column; align-items: center; }
+
+        @media (max-width: 768px) {
+            .hero { flex-direction: column-reverse; text-align: center; }
+            .hero-content { padding-right: 0; margin-top: 20px; }
+            .hero-content h1 { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-wrapper">
+            <button class="filter-btn active" onclick="filterItems('all', this)">Tous</button>
+            <button class="filter-btn" onclick="filterItems('Nike', this)">Nike</button>
+            <button class="filter-btn" onclick="filterItems('Adidas', this)">Adidas</button>
+            <button class="filter-btn" onclick="filterItems('Puma', this)">Puma</button>
+            <button class="filter-btn" onclick="filterItems('Maillot', this)">Maillots</button>
+            <button class="filter-btn" onclick="filterItems('Accessoire', this)">Accessoires</button>
+        </div>
+        <a href="#" class="logo-container">
+            <div class="logo-text">AEM <span>BOOTS</span></div>
+            <img src="img/logo.jpeg" class="logo-img">
+        </a>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Le meilleur du <span>Football</span> chez AEM BOOTS</h1>
+            <p style="margin: 15px 0 25px; color: #718096;">Découvrez notre collection exclusive de haute qualité.</p>
+            <a href="#shop" style="background: var(--primary-blue); color:white; padding:12px 25px; border-radius:50px; text-decoration:none; font-weight:bold;">Acheter Maintenant</a>
+        </div>
+        <div class="hero-image">
+            <img src="img/nike.jpeg" alt="Hero Shoe">
+        </div>
+    </section>
+
+    <section class="products-section" id="shop">
+        <div class="grid">
+            
+            <div class="card" data-tag="Nike">
+                <span class="tag">Nike</span>
+                <div class="card-img-wrapper"><img src="img/nike1.jpeg" class="card-img"></div>
+                <div class="card-body">
+                    <h3>Nike Mercurial Pink</h3>
+                    <div class="price">750 DH</div>
+                    <button class="add-btn" onclick="openOrder('Nike Mercurial Pink', '750 DH', 'shoe')"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+
+            <div class="card" data-tag="Nike">
+                <span class="tag">Nike</span>
+                <div class="card-img-wrapper"><img src="img/nike2.jpeg" class="card-img"></div>
+                <div class="card-body">
+                    <h3>Nike Phantom Blue</h3>
+                    <div class="price">799 DH</div>
+                    <button class="add-btn" onclick="openOrder('Nike Phantom Blue', '799 DH', 'shoe')"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+
+            <div class="card" data-tag="Adidas">
+                <span class="tag">Adidas</span>
+                <div class="card-img-wrapper"><img src="img/adidas.jpeg" class="card-img"></div>
+                <div class="card-body">
+                    <h3>Adidas Predator Elite</h3>
+                    <div class="price">750 DH</div>
+                    <button class="add-btn" onclick="openOrder('Adidas Predator Elite', '750 DH', 'shoe')"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="card" data-tag="puma">
+                <span class="tag">puma</span>
+                <div class="card-img-wrapper"><img src="img/puma.jpeg" class="card-img"></div>
+                <div class="card-body">
+                    <h3>pumaaaaaa</h3>
+                    <div class="price">750 DH</div>
+                    <button class="add-btn" onclick="openOrder('pumaaaaaa', '750 DH', 'shoe')"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+
+            <div class="card" data-tag="Maillot">
+                <span class="tag">Maillot</span>
+                <div class="card-img-wrapper"><img src="img/moroco1.jpeg" class="card-img"></div>
+                <div class="card-body">
+                    <h3>Maroc Domicile 2026</h3>
+                    <div class="price">650 DH</div>
+                    <button class="add-btn" onclick="openOrder('Maroc Domicile 2026', '650 DH', 'shirt')"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+
+            <div class="card" data-tag="Maillot">
+                <span class="tag">Maillot</span>
+                <div class="card-img-wrapper"><img src="img/arg.jpeg" class="card-img"></div>
+                <div class="card-body">
+                    <h3>Maillot Argentine</h3>
+                    <div class="price">550 DH</div>
+                    <button class="add-btn" onclick="openOrder('Maillot Argentine', '550 DH', 'shirt')"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+
+            <div class="card" data-tag="Accessoire">
+                <span class="tag">Accessoire</span>
+                <div class="card-img-wrapper"><img src="img/prtj.jpeg" class="card-img"></div>
+                <div class="card-body">
+                    <h3>Protège-tibias AEM</h3>
+                    <div class="price">150 DH</div>
+                    <button class="add-btn" onclick="openOrder('Protège-tibias AEM', '150 DH', 'acc')"><i class="fas fa-shopping-bag"></i></button>
+                </div>
+            </div>
+
+            <div class="card" data-tag="Accessoire">
+                <span class="tag">Accessoire</span>
+                <div class="card-img-wrapper"><img src="img/silikonw.jpeg" class="card-img"></div>
+                <div class="card-body">
+                    <h3>Chaussettes Silicone</h3>
+                    <div class="price">100 DH</div>
+                    <button class="add-btn" onclick="openOrder('Chaussettes Silicone', '100 DH', 'acc')"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <h2 id="mTitle" style="font-weight:900;">Commander</h2>
+            <p id="mPrice" style="color:var(--primary-blue); font-weight:800; margin-bottom:20px;"></p>
+            
+            <form onsubmit="sendOrder(event)">
+                <div class="form-group">
+                    <label>Nom Complet</label>
+                    <input type="text" id="cName" required>
+                </div>
+                <div class="form-group">
+                    <label>Téléphone</label>
+                    <input type="tel" id="cPhone" required>
+                </div>
+                <div class="form-group">
+                    <label>Adresse Complète</label>
+                    <input type="text" id="cAddress" placeholder="Ville, Quartier, Rue..." required>
+                </div>
+
+                <div id="sizeSection" class="form-group">
+                    <label id="sizeLabel">Taille</label>
+                    <div class="size-grid" id="sizeGrid"></div>
+                </div>
+
+                <input type="hidden" id="selectedSize">
+                <button type="submit" class="submit-btn">CONFIRMER LA COMMANDE</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="logo-text">AEM <span>BOOTS</span></div>
+        <p style="color: #a0aec0; font-size: 0.85rem; margin-top: 10px;">© 2026 AEM BOOTS Morocco. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        let currentSize = null;
+
+        function filterItems(tag, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.card').forEach(c => {
+                c.style.display = (tag === 'all' || c.getAttribute('data-tag') === tag) ? 'flex' : 'none';
+            });
+        }
+
+        function openOrder(name, price, type) {
+            document.getElementById('mTitle').innerText = name;
+            document.getElementById('mPrice').innerText = price;
+            
+            const grid = document.getElementById('sizeGrid');
+            const section = document.getElementById('sizeSection');
+            const label = document.getElementById('sizeLabel');
+            
+            grid.innerHTML = '';
+            currentSize = null;
+
+            if (type === 'shoe') {
+                section.style.display = 'block';
+                label.innerText = "Pointure (36 - 44)";
+                const sizes = [36, 37, 38, 39, 40, 41, 42, 43, 44];
+                sizes.forEach(s => createSizeBox(s, grid));
+            } 
+            else if (type === 'shirt') {
+                section.style.display = 'block';
+                label.innerText = "Taille (S - XXL)";
+                const sizes = ['S', 'M', 'L', 'XL', 'XXL'];
+                sizes.forEach(s => createSizeBox(s, grid));
+            } 
+            else {
+                section.style.display = 'none';
+                currentSize = 'N/A'; // لا يحتاج مقاس للإكسسوارات
+            }
+
+            document.getElementById('orderModal').style.display = 'flex';
+        }
+
+        function createSizeBox(val, container) {
+            const div = document.createElement('div');
+            div.className = 'size-box';
+            div.innerText = val;
+            div.onclick = function() {
+                document.querySelectorAll('.size-box').forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                currentSize = val;
+            };
+            container.appendChild(div);
+        }
+
+        function closeModal() { document.getElementById('orderModal').style.display = 'none'; }
+
+        function sendOrder(e) {
+            e.preventDefault();
+            if(!currentSize) { alert("Veuillez choisir une taille !"); return; }
+            alert("Merci " + document.getElementById('cName').value + "! Commande reçue.");
+            closeModal();
+        }
+
+        window.onclick = function(e) { if (e.target.className === 'modal') closeModal(); }
+    </script>
+</body>
+</html>
