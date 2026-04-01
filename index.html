@@ -28,7 +28,6 @@
             padding: 10px 0;
         }
 
-        /* الشعار في الوسط */
         .logo-bar {
             display: flex;
             justify-content: center;
@@ -38,10 +37,9 @@
             border-bottom: 1px solid #f0f0f0;
         }
         .logo-text { font-weight: 900; font-size: 1.5rem; color: #000; text-transform: uppercase; text-decoration: none; }
-        .logo-text span { color: var(--primary-blue); }
+        .logo-text span { color: #000; } 
         .logo-img { width: 45px; height: 45px; border-radius: 8px; object-fit: cover; }
 
-        /* شريط التصنيفات أسفل الشعار */
         .nav-wrapper {
             display: flex;
             justify-content: center;
@@ -64,52 +62,95 @@
             font-size: 0.85rem;
             transition: 0.3s;
         }
-        .filter-btn.active { background: var(--primary-blue); color: white; }
+        .filter-btn.active { background: #000; color: white; }
+
+        /* --- Hero --- */
+        .hero { display: flex; align-items: center; justify-content: space-between; padding: 40px 8%; background: var(--white); border-bottom: 1px solid #f0f0f0; }
+        .hero-content { flex: 1; }
+        .hero-content h1 { font-size: 2.5rem; font-weight: 900; line-height: 1.1; }
+        .hero-content h1 span { color: var(--primary-blue); }
+        .hero-image { flex: 1; display: flex; justify-content: center; }
+        .hero-image img { width: 100%; max-width: 300px; border-radius: 20px; }
 
         /* --- Products Grid --- */
         .products-section { padding: 20px 5%; }
         .grid { 
             display: grid; 
-            grid-template-columns: repeat(2, 1fr); /* صورتين في كل سطر للموبايل */
+            grid-template-columns: repeat(2, 1fr); 
             gap: 15px; 
         }
         
         .card { background: white; border-radius: 15px; overflow: hidden; border: 1px solid #f0f0f0; transition: 0.3s; display: flex; flex-direction: column; position: relative; }
-        .card-img-wrapper { width: 100%; height: 180px; background: #f9f9f9; }
-        .card-img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* تعديل سلايدر الصور (5 صور) */
+        .card-img-wrapper { 
+            width: 100%; 
+            height: 180px; 
+            background: #f9f9f9; 
+            position: relative; 
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+        .card-img-wrapper::-webkit-scrollbar { display: none; }
+        
+        .card-img { 
+            min-width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            scroll-snap-align: start;
+        }
+
+        /* نقاط التمرير */
+        .slider-dots {
+            position: absolute;
+            bottom: 8px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            pointer-events: none;
+        }
+        .dot { width: 5px; height: 5px; background: rgba(0,0,0,0.2); border-radius: 50%; }
+
         .tag { position: absolute; top: 8px; left: 8px; background: rgba(255,255,255,0.9); padding: 2px 8px; border-radius: 50px; font-weight: 800; font-size: 0.6rem; color: #333; z-index: 10; }
         
         .card-body { padding: 10px; text-align: left; display: flex; flex-direction: column; flex-grow: 1; }
         .card-body h3 { font-size: 0.85rem; font-weight: 700; margin-bottom: 5px; }
         .price { font-weight: 900; font-size: 1rem; color: var(--primary-blue); margin-bottom: 10px; }
-        .add-btn { background: var(--primary-blue); color: white; border: none; width: 100%; padding: 10px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.8rem; }
+        .add-btn { background: #000; color: white; border: none; width: 100%; padding: 10px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.8rem; }
 
-        /* --- Modal (الاستمارة) --- */
+        /* --- Modal --- */
         .modal { display: none; position: fixed; z-index: 2000; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); justify-content: center; align-items: flex-end; }
         .modal-content { background: white; padding: 25px; border-radius: 25px 25px 0 0; width: 100%; max-width: 500px; animation: slideUp 0.3s ease-out; position: relative; max-height: 90vh; overflow-y: auto; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
         
         .close-btn { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; border: none; background: none; }
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 0.85rem; }
-        .form-group input { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 12px; outline: none; font-size: 0.9rem; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 700; font-size: 0.85rem; }
+        .form-group input { width: 100%; padding: 12px; border: 2px solid #eee; border-radius: 12px; outline: none; }
         
-        /* تصميم جدول القياسات */
-        .size-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 5px; }
-        .size-box { border: 2px solid #eee; padding: 10px; text-align: center; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.85rem; transition: 0.2s; }
+        .size-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 10px; }
+        .size-box { border: 2px solid #eee; padding: 10px 5px; text-align: center; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 0.8rem; }
         .size-box.selected { border-color: var(--primary-blue); background: #e1efff; color: var(--primary-blue); }
-
         .submit-btn { width: 100%; padding: 15px; background: #25D366; color: white; border: none; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 10px; font-size: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px; }
 
-        /* --- Desktop Adjustments --- */
         @media (min-width: 769px) {
+            .nav-wrapper { justify-content: center; }
             .grid { grid-template-columns: repeat(4, 1fr); gap: 25px; }
             .card-img-wrapper { height: 250px; }
             .modal { align-items: center; }
             .modal-content { border-radius: 25px; width: 95%; max-width: 420px; }
         }
 
-        footer { padding: 30px 5%; background: var(--white); text-align: center; border-top: 1px solid #f0f0f0; margin-top: 20px; }
+        @media (max-width: 768px) {
+            .hero { flex-direction: column-reverse; text-align: center; padding: 30px 5%; }
+            .hero-content h1 { font-size: 1.8rem; margin-top: 15px; }
+            .nav-wrapper { justify-content: flex-start; }
+        }
+
+        footer { padding: 30px 5%; background: var(--white); text-align: center; border-top: 1px solid #f0f0f0; }
     </style>
 </head>
 <body>
@@ -129,46 +170,162 @@
         </div>
     </header>
 
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Le meilleur du <span>Football</span></h1>
+            <p style="margin: 10px 0 20px; color: #718096; font-size: 0.9rem;">Meilleur Qualité au Maroc.</p>
+            <a href="#shop" style="background: #000; color:white; padding:10px 20px; border-radius:50px; text-decoration:none; font-weight:bold; font-size: 0.9rem;">Acheter</a>
+        </div>
+        <div class="hero-image">
+            <img src="img/nike.jpeg" alt="Hero">
+        </div>
+    </section>
+
     <section class="products-section" id="shop">
         <div class="grid">
-            <div class="card" data-tag="Nike">
-                <span class="tag">Nike</span>
-                <div class="card-img-wrapper"><img src="img/nike1.jpeg" class="card-img"></div>
+            <!-- بطاقة منتج بـ 5 صور -->
+             <div class="card" data-tag="nike">
+                <span class="tag">nike</span>
+                <div class="card-img-wrapper">
+                    <img src="img/19.jpeg" class="card-img">
+                    <img src="img/20.jpeg" class="card-img">
+                    <img src="img/21.jpeg" class="card-img">
+                    <img src="img/22.jpeg" class="card-img">
+                    <img src="img/23.jpeg" class="card-img">
+                    <div class="slider-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                </div>
                 <div class="card-body">
-                    <h3>Nike Mercurial Pink</h3>
-                    <div class="price">750 DH</div>
-                    <button class="add-btn" onclick="openOrder('Nike Mercurial Pink', '750 DH', 'shoe')">Commander</button>
+                    <h3>Nike air zoom vapor 15 FG</h3>
+                    <div class="price">599 DH</div>
+                    <button class="add-btn" onclick="openOrder('Nike air zoom vapor 15 FG', '599 DH', 'shoe')">Commander</button>
+                </div>
+            </div>
+            <div class="card" data-tag="Adidas">
+                <span class="tag">adidas</span>
+                <div class="card-img-wrapper">
+                    <img src="img/1.jpeg" class="card-img">
+                    <img src="img/2.jpeg" class="card-img">
+                    <img src="img/33.jpeg" class="card-img">
+                    <img src="img/44.jpeg" class="card-img">
+                    <img src="img/55.jpeg" class="card-img">
+                    <div class="slider-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                </div>
+                <div class="card-body">
+                    <h3>Adidas f50 laceless FG</h3>
+                    <div class="price">599 DH</div>
+                    <button class="add-btn" onclick="openOrder('Adidas f50 laceless FG', '599 DH', 'shoe')">Commander</button>
+                </div>
+            </div>
+            
+            <div class="card" data-tag="Adidas">
+                <span class="tag">adidas</span>
+                <div class="card-img-wrapper">
+                    <img src="img/3.jpeg" class="card-img">
+                    <img src="img/4.jpeg" class="card-img">
+                    <img src="img/555.jpeg" class="card-img">
+                    <img src="img/666.jpeg" class="card-img">
+                    <img src="img/777.jpeg" class="card-img">
+                    <div class="slider-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                </div>
+                <div class="card-body">
+                    <h3>ADIDAS F50 LACELESS FG</h3>
+                    <div class="price">599 DH</div>
+                    <button class="add-btn" onclick="openOrder('ADIDAS F50 LACELESS FG', '599 DH', 'shoe')">Commander</button>
+                </div>
+            </div>
+
+            <div class="card" data-tag="Adidas">
+                <span class="tag">Adidas</span>
+                <div class="card-img-wrapper">
+                    <img src="img/5.jpeg" class="card-img">
+                    <img src="img/6.jpeg" class="card-img">
+                    <img src="img/7777.jpeg" class="card-img">
+                    <img src="img/8888.jpeg" class="card-img">
+                    <img src="img/9999.jpeg" class="card-img">
+                    <div class="slider-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                </div>
+                <div class="card-body">
+                    <h3>Adidas f50 laceless FG</h3>
+                    <div class="price">599 DH</div>
+                    <button class="add-btn" onclick="openOrder('Adidas f50 laceless FG', '599 DH', 'shoe')">Commander</button>
+                </div>
+            </div>
+
+            <div class="card" data-tag="nike">
+                <span class="tag">nike</span>
+                <div class="card-img-wrapper">
+                    <img src="img/7.jpeg" class="card-img">
+                    <img src="img/8.jpeg" class="card-img">
+                    <img src="img/13.jpeg" class="card-img">
+                    <img src="img/14.jpeg" class="card-img">
+                    <img src="img/15.jpeg" class="card-img">
+                    <div class="slider-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                </div>
+                <div class="card-body">
+                    <h3>Nike air zoom vapor 16 FG</h3>
+                    <div class="price">599 DH</div>
+                    <button class="add-btn" onclick="openOrder('Nike air zoom vapor 16 FG', '599 DH', 'shoe')">Commander</button>
+                </div>
+            </div>
+
+            <div class="card" data-tag="nike">
+                <span class="tag">nike</span>
+                <div class="card-img-wrapper">
+                    <img src="img/9.jpeg" class="card-img">
+                    <img src="img/10.jpeg" class="card-img">
+                    <img src="img/16.jpeg" class="card-img">
+                    <img src="img/17.jpeg" class="card-img">
+                    <img src="img/18.jpeg" class="card-img">
+                    <div class="slider-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                </div>
+                <div class="card-body">
+                    <h3>Nike air zoom vapor 16 FG</h3>
+                    <div class="price">599 DH</div>
+                    <button class="add-btn" onclick="openOrder('Nike air zoom vapor 16 FG', '599 DH', 'shoe')">Commander</button>
                 </div>
             </div>
 
             <div class="card" data-tag="Maillot">
                 <span class="tag">Maillot</span>
-                <div class="card-img-wrapper"><img src="img/moroco1.jpeg" class="card-img"></div>
+                <div class="card-img-wrapper">
+                    <img src="img/moroco1.jpeg" class="card-img">
+                    <img src="img/maroco2.jpeg" class="card-img">
+                    <img src="img/maroco3.jpeg" class="card-img">
+                    <img src="img/maroco4.jpeg" class="card-img">
+                    <img src="img/maroco5.jpeg" class="card-img">
+                    <div class="slider-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                </div>
                 <div class="card-body">
                     <h3>Maroc Domicile 2026</h3>
-                    <div class="price">650 DH</div>
-                    <button class="add-btn" onclick="openOrder('Maroc Domicile 2026', '650 DH', 'shirt')">Commander</button>
+                    <div class="price">99 DH </div>
+                    <button class="add-btn" onclick="openOrder('Maroc Domicile 2026', '99 DH', 'shirt')">Commander</button>
                 </div>
             </div>
 
             <div class="card" data-tag="Accessoire">
                 <span class="tag">Accessoire</span>
-                <div class="card-img-wrapper"><img src="img/prtj.jpeg" class="card-img"></div>
+                <div class="card-img-wrapper">
+                    <img src="img/prtj.jpeg" class="card-img">
+                    <img src="img/prtj2.jpeg" class="card-img">
+                    <img src="img/prtj3.jpeg" class="card-img">
+                    <img src="img/prtj4.jpeg" class="card-img">
+                    <img src="img/prtj5.jpeg" class="card-img">
+                    <div class="slider-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                </div>
                 <div class="card-body">
                     <h3>Protège-tibias AEM</h3>
                     <div class="price">150 DH</div>
                     <button class="add-btn" onclick="openOrder('Protège-tibias AEM', '150 DH', 'acc')">Commander</button>
                 </div>
             </div>
-            
-            </div>
+        </div>
     </section>
 
     <div class="modal" id="orderModal">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal()">&times;</button>
-            <h2 id="mTitle" style="font-weight:900; font-size: 1.2rem; margin-bottom: 5px;">Commander</h2>
-            <p id="mPrice" style="color:var(--primary-blue); font-weight:800; margin-bottom:20px;"></p>
+            <h2 id="mTitle" style="font-weight:900; font-size: 1.2rem;">Commander</h2>
+            <p id="mPrice" style="color:var(--primary-blue); font-weight:800; margin-bottom:15px;"></p>
             
             <form onsubmit="sendOrder(event)">
                 <div class="form-group">
@@ -180,8 +337,12 @@
                     <input type="tel" id="cPhone" placeholder="06..." required>
                 </div>
                 <div class="form-group">
-                    <label>Adresse</label>
-                    <input type="text" id="cAddress" placeholder="Ville, Quartier..." required>
+                    <label>Ville</label>
+                    <input type="text" id="cCity" placeholder="Ex: Casablanca" required>
+                </div>
+                <div class="form-group">
+                    <label>Adresse complète</label>
+                    <input type="text" id="cAddress" placeholder="Quartier, Rue, N° Maison..." required>
                 </div>
 
                 <div id="sizeSection" class="form-group">
@@ -215,18 +376,14 @@
             document.getElementById('mPrice').innerText = price;
             const grid = document.getElementById('sizeGrid');
             const section = document.getElementById('sizeSection');
-            const label = document.getElementById('sizeLabel');
             grid.innerHTML = '';
             currentSize = null;
 
             if (type === 'shoe') {
                 section.style.display = 'block';
-                label.innerText = "Pointure (Taille)";
-                // القياسات من 36 إلى 45
                 [36, 37, 38, 39, 40, 41, 42, 43, 44, 45].forEach(s => createSizeBox(s, grid));
             } else if (type === 'shirt') {
                 section.style.display = 'block';
-                label.innerText = "Taille (S - XXL)";
                 ['S', 'M', 'L', 'XL', 'XXL'].forEach(s => createSizeBox(s, grid));
             } else {
                 section.style.display = 'none';
@@ -255,12 +412,13 @@
             
             const name = document.getElementById('cName').value;
             const phone = document.getElementById('cPhone').value;
+            const city = document.getElementById('cCity').value;
             const address = document.getElementById('cAddress').value;
             const product = document.getElementById('mTitle').innerText;
             const price = document.getElementById('mPrice').innerText;
 
             const myNumber = "212684384248"; 
-            const message = `Bonjour AEM BOOTS, je souhaite commander :%0A- Produit : ${product}%0A- Taille : ${currentSize}%0A- Prix : ${price}%0A---%0A- Nom : ${name}%0A- Tel : ${phone}%0A- Adresse : ${address}`;
+            const message = `Bonjour AEM BOOTS, je souhaite commander :%0A- Produit : ${product}%0A- Taille : ${currentSize}%0A- Prix : ${price}%0A---%0A- Nom : ${name}%0A- Tel : ${phone}%0A- Ville : ${city}%0A- Adresse : ${address}`;
             
             window.open(`https://wa.me/${myNumber}?text=${message}`, '_blank');
             closeModal();
